@@ -6,6 +6,10 @@ class Movies extends Component {
     movies: getMovies()
   };
 
+  handleDelete = movie => {
+    console.log(movie);
+  };
+
   render() {
     return (
       <table className="table">
@@ -15,6 +19,7 @@ class Movies extends Component {
             <th>Genre</th>
             <th>Stock</th>
             <th>Rate</th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -24,6 +29,14 @@ class Movies extends Component {
               <td>{movie.genre.name}</td>
               <td>{movie.numberInStock}</td>
               <td>{movie.dailyRentalRate}</td>
+              <td>
+                <button
+                  onClick={() => this.handleDelete(movie)}
+                  className="btn btn-danger btn-sm"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
