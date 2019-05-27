@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import jwtDecode from "jwt-decode";
 import Movies from "./components/movies";
 import MovieForm from "./components/movieForm";
 import Customers from "./components/customers";
@@ -13,11 +14,24 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 class App extends Component {
+  state = {};
+
+  componentDidMount() {
+    try {
+      const jwt = localStorage.getItem("token");
+      const user = jwtDecode(jwt);
+      console.log(user);
+      this.setState({ user });
+    } catch (ex) {
+      // will igore the exception if there is no valid token in the localstorage.
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar />
+        <NavBar user={this.state.user} />
         <main className="container">
           <Switch>
             <Route path="/register" component={RegisterForm} />
